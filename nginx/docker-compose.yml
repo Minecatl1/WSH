@@ -1,0 +1,16 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "8080:80"
+      - "8443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/certbot:/etc/letsencrypt
+      - ./nginx/www:/var/www/html
+    depends_on:
+      - protodactyl
+      - plex
+      - homeassistant
+    restart: always

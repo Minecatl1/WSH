@@ -2,6 +2,14 @@ const express = require('express');
 const app = express();
 const exec = require('child_process').exec;
 const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
+
+const mediaFolders = [
+  './media/movies',
+  './media/tvshows',
+  './media/music'
+];
 
 // Routes for service management
 app.get('/api/services', (req, res) => {
@@ -25,14 +33,24 @@ app.post('/api/services/:service/stop', (req, res) => {
   });
 });
 
-// Placeholder route for media store integration
-app.get('/api/media', async (req, res) => {
+// Search media in specified folders
+app.get('/api/media/search', async (req, res) => {
+  const searchQuery = req.query.q;
+  let results = [];
+
   try {
-    // Replace with actual cloud storage API integration
-    const mediaFiles = await axios.get('<cloud_storage_api_url>');
-    res.json(mediaFiles.data);
+    for (const folder of mediaFolders) {
+      const files = fs.readdirSync(folder);
+      files.forEach(file => {
+        if (file.toLowerCase().includes(searchQuery.toLowerCase())) {
+          results.push(path.join(folder, file));
+        }
+      });
+    }
+
+    res.json(results);
   } catch (error) {
-    res.status(500).send(`Error fetching media: ${error.message}`);
+    res.status(500).send(`Error searching media: ${error.message}`);
   }
 });
 
