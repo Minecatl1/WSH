@@ -18,7 +18,7 @@ services:
       - PUID=1000
       - PGID=1000
       - VERSION=latest
-      - PLEX_CLAIM=<your_claim_token>
+      - PLEX_CLAIM=claim-ZLz9Z82RzrFa_pb_E9my
     volumes:
       - ./plex:/config
       - ./media:/media
