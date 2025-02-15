@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  protodactyl:
+    image: protodactyl/protodactyl
+    container_name: protodactyl
+    ports:
+      - "8080:80"
+    volumes:
+      - ./protodactyl:/data
+    restart: always
+
+  plex:
+    image: linuxserver/plex
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VERSION=latest
+      - PLEX_CLAIM=<your_claim_token>
+    volumes:
+      - ./plex:/config
+      - ./media:/media
+    restart: always
+
+  homeassistant:
+    image: homeassistant/home-assistant
+    container_name: homeassistant
+    environment:
+      - TZ=America/Chicago
+    volumes:
+      - ./homeassistant:/config
+    ports:
+      - "8123:8123"
+    restart: always
+
+  dashboard:
+    build: ./backend
+    container_name: dashboard
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/frontend
+    depends_on:
+      - protodactyl
+      - plex
+      - homeassistant
+    restart: always
