@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Plex",
+    "description": "Stream your favorite media",
+    "inputs": [
+      { "name": "PLEX_CLAIM", "placeholder": "Enter Plex Claim Token" }
+    ],
+    "composeTemplate": "\n      plex:\n        image: linuxserver/plex\n        container_name: plex\n        network_mode: host\n        environment:\n          - PUID=1000\n          - PGID=1000\n          - VERSION=latest\n          - PLEX_CLAIM={PLEX_CLAIM}\n        volumes:\n          - ./plex:/config\n          - ./media:/media\n        restart: always\n    "
+  },
+  {
+    "name": "Protodactyl",
+    "description": "Manage your server effortlessly",
+    "inputs": [],
+    "composeTemplate": "\n      protodactyl:\n        image: protodactyl/protodactyl\n        container_name: protodactyl\n        ports:\n          - '8080:80'\n        volumes:\n          - ./protodactyl:/data\n        restart: always\n    "
+  },
+  {
+    "name": "Home Assistant",
+    "description": "Automate your home",
+    "inputs": [],
+    "composeTemplate": "\n      homeassistant:\n        image: homeassistant/home-assistant:stable\n        container_name: homeassistant\n        environment:\n          - TZ=America/Chicago\n        volumes:\n          - ./homeassistant:/config\n        ports:\n          - '8123:8123'\n        restart: always\n    "
+  }
+]

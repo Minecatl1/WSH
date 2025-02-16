@@ -1,0 +1,18 @@
+debug: false
+uuid: 196d8ad0-5850-4900-92f3-30d7059dcdec
+token_id: GJeBvJzUyB1mDlpT
+token: TaRormEk2cGdMxDWDK1HEHAbHERbWyX2DDQ2aLHSKuXlYZuZIfA7ZFBwqzgGyNjz
+api:
+  host: 0.0.0.0
+  port: 443
+  ssl:
+    enabled: false
+    cert: /etc/letsencrypt/live/minecatl1.github.io/fullchain.pem
+    key: /etc/letsencrypt/live/minecatl1.github.io/privkey.pem
+  upload_limit: 100
+system:
+  data: /var/lib/pterodactyl/volumes
+  sftp:
+    bind_port: 2022
+allowed_mounts: []
+remote: 'https://upgraded-halibut-q7qv5jjgpw6w2j67-80.app.github.dev/'
