@@ -1,0 +1,12 @@
+version: '3'
+services:
+  duckdns:
+    image: linuxserver/duckdns
+    container_name: duckdns
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+      - SUBDOMAINS=mcaaws
+      - TOKEN=bda22697-9ffc-4384-a0d5-d8ea8436c0fe
+    restart: always
